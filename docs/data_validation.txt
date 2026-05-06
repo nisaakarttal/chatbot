@@ -1,0 +1,11 @@
+# DATA VALIDATION
+
+Kontroller:
+- Tüm JSON dosyaları valid mi?
+- Boş alan var mı?
+- Veri tipleri doğru mu?
+
+Örnek:
+order_id → string
+status → string
+delivery → string

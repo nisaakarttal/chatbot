@@ -1,0 +1,23 @@
+# DEMO SENARYOSU
+
+## Senaryo 1: Ürün önerme
+
+User: Ürün öner
+Bot: Ürün listesi gösterir
+
+## Senaryo 2: Sipariş takibi
+
+User: Siparişim nerede?
+Bot: Sipariş no ister
+User: 123
+Bot: Sipariş durumu gösterir
+
+## Senaryo 3: İade
+
+User: İade nasıl yapılır?
+Bot: İade adımlarını anlatır
+
+---
+## Senaryo 4: Yanlış mesaj
+User: asdfgh
+Bot: fallback mesajı verir
