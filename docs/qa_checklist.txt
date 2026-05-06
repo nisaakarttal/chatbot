@@ -1,0 +1,8 @@
+# QA CHECKLIST
+
+* Cevap doğru mu?
+* Mantıklı mı?
+* Kullanıcıyı yönlendiriyor mu?
+* Kısa ve anlaşılır mı?
+* İnsan gibi mi?
+* Hata durumunda düzgün cevap veriyor mu?

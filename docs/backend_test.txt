@@ -1,0 +1,10 @@
+# BACKEND TEST
+
+* JSON doğru okunuyor mu?
+* order_id ile arama çalışıyor mu?
+* yanlış id hata veriyor mu?
+* boş mesaj handle ediliyor mu?
+
+Test:
+- Geçerli sipariş → veri dönmeli
+- Geçersiz sipariş → hata mesajı dönmeli

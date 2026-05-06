@@ -1,0 +1,19 @@
+# AI EVALUATION
+
+Test 1:
+Input: siparişim nerede
+Cevap: Sipariş numaranızı paylaşır mısınız?
+Puan: 5/5
+Yorum: Doğru yönlendirme
+
+Test 2:
+Input: asdfgh
+Cevap: Sizi anlayamadım...
+Puan: 5/5
+Yorum: Doğru fallback
+
+Test 3:
+Input: iade nasıl yapılır
+Cevap: Ürünü 14 gün içinde iade edebilirsiniz...
+Puan: 4/5
+Yorum: Daha detay eklenebilir

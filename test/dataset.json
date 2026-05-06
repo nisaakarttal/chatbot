@@ -1,0 +1,63 @@
+[
+  {
+    "user_input": "siparsm nerede",
+    "expected_intent": "order_tracking",
+    "expected_response_contains": ["kargo"]
+  },
+  {
+    "id": "TC01",
+    "category": "normal",
+    "user_input": "ürün öner",
+    "expected_intent": "product_recommendation",
+    "expected_response_contains": ["ürün" , "öneri"]
+  },
+  {
+    "id": "TC02",
+    "category": "normal",
+    "user_input": "siparişim nerede",
+    "expected_intent": "order_tracking",
+    "expected_response_contains": ["sipariş", "numara"]
+  },
+  {
+    "id": "TC03",
+    "category": "normal",
+    "user_input": "iade nasıl yapılır",
+    "expected_intent": "refund",
+    "expected_response_contains": ["iade", "adım"]
+  },
+  {
+    "id": "TC04",
+    "category": "edge",
+    "user_input": "",
+    "expected_intent": "empty_input",
+    "expected_response_contains": ["giriş", "yardım"]
+  },
+  {
+    "id": "TC05",
+    "category": "edge",
+    "user_input": "sipariş no 999",
+    "expected_intent": "order_tracking",
+    "expected_response_contains": ["bulunamadı"]
+  },
+  {
+    "id": "TC06",
+    "category": "edge",
+    "user_input": "hava nasıl?",
+    "expected_intent": "fallback",
+    "expected_response_contains": ["yardım", "anlamadım"]
+  },
+  {
+    "id": "TC07",
+    "category": "edge",
+    "user_input": "siparişim",
+    "expected_intent": "order_tracking",
+    "expected_response_contains": ["sipariş", "numara"]
+  },
+  {
+    "id": "TC08",
+    "category": "edge",
+    "user_input": "yanlış kategori",
+    "expected_intent": "invalid_category",
+    "expected_response_contains": ["yanlış", "kategori"]
+  }
+]

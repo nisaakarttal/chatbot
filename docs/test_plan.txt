@@ -1,0 +1,19 @@
+# TEST PLAN
+
+Amaç:
+Chatbot'un doğru intent ve cevap üretip üretmediğini test etmek.
+
+Kapsam:
+- Sipariş işlemleri
+- İade işlemleri
+- Ürün önerisi
+- Edge case durumları
+
+Test Türleri:
+- Manuel test
+- Edge-case test
+- AI response quality test
+
+Başarı Kriteri:
+- Doğru intent ≥ %90
+- Hatalı cevap ≤ %10

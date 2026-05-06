@@ -1,0 +1,27 @@
+[
+  {
+    "order_id": "123",
+    "status": "Kargoda",
+    "delivery": "24 Mayıs"
+  },
+  {
+  "order_id": "789",
+  "status": "Hazırlanıyor",
+  "delivery": "20 Mayıs"
+  },
+  {
+  "order_id": "543",
+  "status": "Teslim edildi",
+  "delivery": "29 Mayıs"
+  },
+  {
+  "order_id": "953",
+  "status": "Kargoda",
+  "delivery": "3 Haziran"
+  },
+  {
+  "order_id": "387",
+  "status": "Teslim edildi",
+  "delivery": "13 Haziran"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Kablosuz Kulaklık",
+    "price": 999
+  },
+  {
+    "id": 2,
+    "name": "Akıllı Saat",
+    "price": 1299
+  },
+  {
+    "id": 3,
+    "name": "Mouse",
+    "price": 499
+  },
+  {
+    "id": 4,
+    "name": "Hoparlör",
+    "price": 1497
+  },
+  {
+    "id": 5,
+    "name": "Şarj kablosu",
+    "price": 777
+  },
+  {
+    "id": 6,
+    "name": "Airtag",
+    "price": 389
+  }
+]
