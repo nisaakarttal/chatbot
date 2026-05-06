@@ -19,5 +19,6 @@ Bot: İade adımlarını anlatır
 
 ---
 ## Senaryo 4: Yanlış mesaj
+
 User: asdfgh
 Bot: fallback mesajı verir
