@@ -1,18 +1,35 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <title>Chatbot</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>E-Ticaret Akıllı Destek</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- E-Ticaret İçeriği Buraya Gelecek -->
+    <header><h1>Mağaza Adı</h1></header>
 
-<div class="chat">
-  <div id="box"></div>
-  <input id="msg" placeholder="Mesaj yaz">
-  <button onclick="send()">Gönder</button>
+    <!-- Chatbot Arayüzü -->
+    <div id="chat-container" class="chat-closed">
+        <div id="chat-header">
+            <span>Akıllı Asistan</span>
+            <button id="toggle-chat">_</button>
+        </div>
+        <!-- Mesajların akacağı alan -->
+<div id="chat-messages">
+    <div class="message bot">Merhaba! Ben AI destekli asistanınız. Size nasıl yardımcı olabilirim?</div>
 </div>
 
-<script src="js/app.js"></script>
+<!-- Dinamik buton alanı -->
+<div id="chat-options">
+    <button onclick="handleOption('Ürün Öner')">🎁 Ürün Öner</button>
+    <button onclick="handleOption('Siparişim Nerede?')">📦 Siparişim Nerede?</button>
+    <button onclick="handleOption('İade İşlemi')">🔄 İade İşlemi</button>
+</div>
+    </div>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
+
