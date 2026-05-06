@@ -1,3 +1,33 @@
-1. Merhaba testi
-2. Ürün sorgusu
-3. Sipariş sorgusu
+# TEST SENARYOLARI
+
+## Normal Senaryolar
+
+1. "ürün öner"
+   Beklenen: ürün listesi dönmeli
+
+2. "siparişim nerede"
+   Beklenen: sipariş no istenmeli
+
+3. "iade nasıl yapılır"
+   Beklenen: iade adımları verilmeli
+
+---
+
+## Edge Case Senaryolar
+
+4. Boş mesaj
+   Beklenen: kullanıcıdan giriş istenmeli
+
+5. Yanlış sipariş numarası (999)
+   Beklenen: "sipariş bulunamadı"
+
+6. Alakasız soru ("hava nasıl?")
+   Beklenen: yönlendirme yapılmalı
+
+7. Kullanıcı “siparişim” yazıp bırakırsa?
+    Beklenen: "sipariş no giriniz"
+
+8. Kullanıcı yanlış kategori girerse?
+    Beklenen: "yanlış kategori girildi."
+
+

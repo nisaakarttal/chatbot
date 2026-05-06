@@ -1,1 +1,71 @@
-Chat flow: User -> Frontend -> FastAPI -> AI Service -> Response
+# CHATBOT CONVERSATION FLOW
+
+## 1. Karşılama
+
+Bot: Merhaba! Size nasıl yardımcı olabilirim?
+
+* Ürün öner
+* Sipariş durumu
+* İade işlemi
+
+---
+
+## 2. Ürün Önerme Akışı
+
+User: Ürün öner
+Bot: Hangi kategoride ürün arıyorsunuz?
+
+User: Elektronik
+Bot:
+
+* Kablosuz Kulaklık – 999₺
+* Akıllı Saat – 1299₺
+* Mouse - 499₺
+* Hoparlör - 1497₺
+* Şarj Kablosu - 777₺
+
+---
+
+## 3. Sipariş Takip Akışı
+
+User: Siparişim nerede?
+Bot: Sipariş numaranızı girer misiniz?
+
+User: 123
+Bot: Siparişiniz kargoda. Tahmini teslim: 24 Mayıs.
+
+---
+
+## 4. İade Akışı
+
+User: İade yapmak istiyorum
+Bot: İade için:
+Hesabım > Siparişlerim > İade Talebi
+
+---
+
+## 5. Bilinmeyen Soru
+
+User: (alakasız soru)
+Bot: Bu konuda yardımcı olamıyorum. Ürünler veya siparişler hakkında destek verebilirim.
+
+---
+
+## 6. Error Flow
+
+User: Siparişim nerede?
+Bot: Sipariş numaranızı paylaşır mısınız?
+User: bilmiyorum
+Bot: Sipariş numaranızı bulmak için e-posta adresinizi paylaşabilirsiniz
+
+---
+
+## 7. Eksik Bilgi
+User: siparişim
+Bot: Sipariş numaranızı paylaşır mısınız?
+
+---
+
+## 8. Hatalı Sipariş No
+User: sipariş no 999
+Bot: Bu sipariş bulunamadı. Lütfen tekrar kontrol edin.

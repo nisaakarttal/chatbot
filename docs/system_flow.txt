@@ -1,0 +1,25 @@
+# SYSTEM FLOW (BACKEND İÇİN)
+
+1. Kullanıcı mesaj gönderir
+
+2. Backend mesajı alır
+
+3. Intent belirlenir:
+
+   * ürün öner
+   * sipariş sorgu
+   * iade
+
+4. Eğer sipariş sorgu:
+
+   * sipariş no var mı kontrol et
+   * yoksa kullanıcıdan iste
+   * varsa JSON’da ara
+
+5. Sonuç bulunursa:
+
+   * status + delivery döndür
+
+6. Bulunamazsa:
+
+   * "sipariş bulunamadı" mesajı ver
