@@ -1,74 +1,95 @@
-// 1. Değişken Tanımlamaları
+// 1. DOM Elementlerini Seçme
 const chatMessages = document.getElementById('chat-messages');
 const chatOptions = document.getElementById('chat-options');
 
-// 2. Kişi 3'ün Hazırladığı JSON Verilerini Çekme (Ürün Bilgileri)
+// 2. Ürün Verilerini Backend'den Çekme
 async function getProducts() {
     try {
-        // Dosya yolunu klasör yapınıza göre kontrol edin (Örn: '../backend/data/products.json')
-        const response = await fetch('backend/data/products.json');
-        const products = await response.json();
-        return products;
+        // FastAPI üzerinden sunduğumuz ürün listesine istek atar
+        const response = await fetch('/api/products');
+        if (!response.ok) throw new Error("Ürünler yüklenemedi");
+        return await response.json();
     } catch (error) {
-        console.error("Ürün verileri yüklenemedi:", error);
+        console.error("Hata:", error);
         return [];
     }
 }
 
-// 3. Ana Kontrol Fonksiyonu: Butonlara Tıklandığında Çalışır
+// 3. Ana Kontrol Fonksiyonu: Buton Tıklamaları
 async function handleOption(optionText) {
-    // Kullanıcının seçtiği butonu ekrana mesaj olarak bas
+    // Kullanıcı mesajını ekrana ekle
     appendMessage(optionText, 'user');
 
-    // Butonları geçici olarak kilitle (üst üste tıklamayı önlemek için)
-    chatOptions.style.pointerEvents = "none";
-    chatOptions.style.opacity = "0.5";
+    // Butonları işlem bitene kadar kilitle
+    toggleButtons(false);
 
     if (optionText === 'Ürün Öner') {
-        // Ürün Öner senaryosu: Verileri JSON'dan al ve kart olarak bas
+        // --- ÜRÜN ÖNERİ SENARYOSU ---
         const products = await getProducts();
-        renderProductList(products);
+        if (products.length > 0) {
+            renderProductList(products);
+        } else {
+            appendMessage("Şu an önerilecek ürün bulunamadı.", 'bot');
+        }
+        toggleButtons(true);
 
-        // İşlem bitince butonları tekrar aç
-        chatOptions.style.pointerEvents = "auto";
-        chatOptions.style.opacity = "1";
-    } else {
-        // Diğer senaryolar (Sipariş Takibi vb.): Kişi 1'in Backend'ine (AI) sor
+    } else if (optionText === 'Siparişim Nerede?') {
+        // --- SİPARİŞ SORGULAMA SENARYOSU (order.py bağlantısı) ---
+        const orderId = prompt("Lütfen 4 haneli sipariş numaranızı girin (Örn: 1001):");
+
+        if (!orderId) {
+            appendMessage("İşlem iptal edildi. Sipariş numarası girmediniz.", 'bot');
+            toggleButtons(true);
+            return;
+        }
+
         try {
-            const response = await fetch('http://localhost:8000/chat', {
+            const response = await fetch(`/api/order-status/${orderId}`);
+            const data = await response.json();
+
+            if (data.status === "Sipariş bulunamadı") {
+                appendMessage(`❌ ${orderId} numaralı bir sipariş kaydı bulunamadı.`, 'bot');
+            } else {
+                appendMessage(`📦 Sipariş Durumu: ${data.status}`, 'bot');
+            }
+        } catch (error) {
+            appendMessage("Sipariş sistemine şu an ulaşılamıyor.", 'bot');
+        }
+        toggleButtons(true);
+
+    } else {
+        // --- DİĞER DURUMLAR (AI Mesajlaşma) ---
+        try {
+            const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: optionText })
             });
             const data = await response.json();
-            appendMessage(data.response, 'bot');
+            appendMessage(data.reply, 'bot');
         } catch (error) {
-            appendMessage("Şu an sisteme bağlanılamıyor.", 'bot');
+            appendMessage("Üzgünüm, şu an bağlantı kuramıyorum.", 'bot');
         } finally {
-            // Butonları tekrar aktif et
-            chatOptions.style.pointerEvents = "auto";
-            chatOptions.style.opacity = "1";
+            toggleButtons(true);
         }
     }
 }
 
-// 4. Mesaj Balonlarını Ekrana Basan Fonksiyon (Ekran görüntündeki fonksiyonun günceli)
+// 4. Mesaj Balonlarını Oluşturma
 function appendMessage(text, sender) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `message ${sender}`;
     msgDiv.innerText = text;
     chatMessages.appendChild(msgDiv);
 
-    // Otomatik aşağı kaydırma
+    // Otomatik aşağı kaydır
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// 5. Ürünleri Şık Kartlar Halinde Gösteren Fonksiyon
+// 5. Ürün Kartlarını Ekrana Basma
 function renderProductList(products) {
-    // Botun giriş cümlesi
-    appendMessage("İşte sizin için seçtiğimiz bazı ürünler:", 'bot');
+    appendMessage("İşte size özel seçtiğimiz ürünler:", 'bot');
 
-    // Kartların içinde duracağı grid yapısı
     const productGrid = document.createElement('div');
     productGrid.className = 'product-grid';
 
@@ -85,4 +106,15 @@ function renderProductList(products) {
 
     chatMessages.appendChild(productGrid);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// 6. Yardımcı Fonksiyon: Buton Kilidi
+function toggleButtons(enable) {
+    if (enable) {
+        chatOptions.style.pointerEvents = "auto";
+        chatOptions.style.opacity = "1";
+    } else {
+        chatOptions.style.pointerEvents = "none";
+        chatOptions.style.opacity = "0.5";
+    }
 }

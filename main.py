@@ -1,21 +1,28 @@
+import os
 from fastapi import FastAPI
-from routes.chat import router as chat_router
-from routes.order import router as order_router
-from fastapi.middleware.cors import CORSMiddleware
+app = FastAPI() # Uygulama nesnesi bu şekilde tanımlanmalı
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
+from routes import order, chat
+app.include_router(order.router, prefix="/api")
 app = FastAPI()
+# Rotalar
+app.include_router(chat.router, prefix="/api")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# ÖNEMLİ: Statik dosyaların yolu
+current_dir = os.path.dirname(os.path.abspath(__file__))
+frontend_path = os.path.join(current_dir, "frontend")
 
-app.include_router(chat_router)
-app.include_router(order_router)
+# /static/css/style.css gibi erişim sağlar
+app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
 @app.get("/")
-def home():
-    return {"message": "Backend çalışıyor 🚀"}
+async def read_index():
+    return FileResponse(os.path.join(frontend_path, "index.html"))
+
+# Ürün verileri için endpoint (app.js içindeki fetch için)
+@app.get("/api/products")
+async def get_products():
+    return FileResponse(os.path.join(current_dir, "data", "products.json"))

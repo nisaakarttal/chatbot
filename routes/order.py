@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+# Örnek veri seti
 orders = {
     "1001": "Kargoda",
     "1002": "Hazırlanıyor",

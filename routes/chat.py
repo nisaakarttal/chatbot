@@ -1,13 +1,15 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.ai_service import ask_ai
+# 'chatbot.' takısını buradan da kaldırın
+from services.ai_service import AIService
 
 router = APIRouter()
+ai_service = AIService()
 
-class Message(BaseModel):
+class ChatRequest(BaseModel):
     message: str
 
 @router.post("/chat")
-def chat(msg: Message):
-    response = ask_ai(msg.message)
-    return {"response": response}
+async def chat_endpoint(request: ChatRequest):
+    response = await ai_service.generate_response(request.message)
+    return {"reply": response}
