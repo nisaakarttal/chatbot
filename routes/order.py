@@ -2,7 +2,6 @@ import json
 import os
 from fastapi import APIRouter
 
-
 router = APIRouter()
 
 # JSON dosyasının tam yolunu belirliyoruz
