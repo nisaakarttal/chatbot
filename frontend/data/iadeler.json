@@ -1,0 +1,14 @@
+[
+  {
+    "return_id": "R001",
+    "order_id": "123",
+    "status": "Talep oluşturuldu",
+    "created_at": "2026-05-07"
+  },
+  {
+    "return_id": "R002",
+    "order_id": "789",
+    "status": "İnceleniyor",
+    "created_at": "2026-05-08"
+  }
+]

@@ -3,27 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>E-Ticaret Akıllı Destek</title>
-    <!-- Yolları /static/ ile başlattık -->
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header><h1>Mağaza Adı</h1></header>
+    <header>
+        <h1>Mağaza Adı</h1>
+    </header>
 
     <div id="chat-container">
         <div id="chat-header">
             <span>Akıllı Asistan</span>
         </div>
+
         <div id="chat-messages">
-            <div class="message bot">Merhaba! Ben AI destekli asistanınız. Size nasıl yardımcı olabilirim?</div>
+            <div class="message bot">
+                Merhaba! Size nasıl yardımcı olabilirim?
+            </div>
         </div>
 
         <div id="chat-options">
-            <button onclick="handleOption('Ürün Öner')">🎁 Ürün Öner</button>
-            <button onclick="handleOption('Siparişim Nerede?')">📦 Siparişim Nerede?</button>
-            <button onclick="handleOption('İade İşlemi')">🔄 İade İşlemi</button>
+            <button onclick="sendQuickMessage('ürün öner')">🎁 Ürün Öner</button>
+            <button onclick="sendQuickMessage('sipariş')">📦 Sipariş Takibi</button>
+            <button onclick="sendQuickMessage('iade')">🔄 İade İşlemi</button>
+        </div>
+
+        <div id="chat-input-area">
+            <input
+                id="chat-input"
+                type="text"
+                placeholder="Mesajınızı yazın..."
+            />
+            <button onclick="sendMessage()">Gönder</button>
         </div>
     </div>
 
-    <script src="/static/js/app.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>

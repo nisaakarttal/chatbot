@@ -11,3 +11,5 @@ def request_log(message):
 
 def error_log(message):
     log("ERROR", message)
+
+
