@@ -1,3 +1,4 @@
+/* TARAYICIYA SAYFANIN HANGİ PARÇALARDAN OLUŞTUĞUNU BELİRTİR */
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Commerce - Akıllı Alışveriş</title>
     <link rel="stylesheet" href="/css/style.css">
+    /*TASARIM DOSYASINI İÇERİ AKTARIR VE SAYFANIN BU TASARIMI GİYMESİNİ SAĞLAR*/
 </head>
 <body>
     <section class="main-hero">
@@ -15,6 +17,7 @@
 
         <div class="category-buttons">
             <div class="cat-btn" onclick="sendQuickMessage('Kulaklıklar')">
+                /*JAVASCRİPT DOSYASINDAKİ sendQuickMessage FONKSİYONUNU TETİKLEYİP KULLANICININ TIKLAYARAK ASİSTANA KOMUT VERMESİNİ SAĞLAR*/
                 <span class="icon">🎧</span>
                 <strong>Kulaklıklar</strong>
                 <span class="desc">Premium Ses</span>
@@ -38,16 +41,18 @@
     </section>
 
     <div id="chat-container">
+        /*CHATBOTUN PARÇALARINI TEK KUTUDA TUTAR,CHATBOTUN VÜCUDU, ID VERİLMESİ SEBEBİ CSS VE JS İLE BU KUTUCUĞA KOLAYCA ERİŞEBİLMEKTİR, JAVASCRİPT İLE ID KULLANILARAK ÖGELER MANİPÜLE EDİLEBİLİR, CSS DOSYASINDA İSE BU ID # İLE KULLANILARAK O ID'YE AİT OLAN ÖGELERE DEĞİŞİKLİK UYGULANACAĞI BELİRLENİR*/
         <div id="chat-header">
             <h2>SMART ASİSTAN</h2>
             <p>Size nasıl yardımcı olabilirim?</p>
         </div>
 
         <div id="chat-messages">
-            <div class="message bot">Merhaba! Mağazamıza hoş geldiniz. 👋</div>
+            /*MESAJLARIN AKTIĞI HAVUZ, CHATBOTTAKİ MESAJLAŞMANIN GERÇEKLEŞTİĞİ YER*
         </div>
 
         <div id="chat-options">
+            /BUTONLARIN BULUNDUĞU KISIM/
             <button class="opt-btn" onclick="sendQuickMessage('Ürün Önerisi')">🎁 Ürün Önerisi</button>
             <button class="opt-btn" onclick="sendQuickMessage('Sipariş Takibi')">📦 Sipariş Takibi</button>
             <button class="opt-btn" onclick="sendQuickMessage('İade İşlemi')">🔄 İade İşlemi</button>

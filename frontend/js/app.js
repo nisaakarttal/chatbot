@@ -1,23 +1,29 @@
 const chatMessages = document.getElementById("chat-messages");
+/*HTML'DE ID'Yİ ARA VE DEĞİŞKENE ATA, MESAJ NEREYE EKLENECEK*/
 const chatInput = document.getElementById("chat-input");
+/*KULLANICININ YAZDIĞINI OKUR*/
 
 // Hızlı cevap butonları
 async function sendQuickMessage(text) {
     appendMessage(text, "user");
     fetchResponse(text.toLowerCase());
+    /*KULLANICININ MESAJINI YAKALAR*/
 }
 
 // Inputtan mesaj gönderme
 async function sendMessage() {
+    /*KULLANICININ MESAJINI YAKALAR*/
     const text = chatInput.value.trim();
 
     if (!text) return;
 
     appendMessage(text, "user");
+    /*KULLANICININ YAZDIĞINI EKRANA BASAR*/
 
     chatInput.value = "";
 
     fetchResponse(text.toLowerCase());
+    /*ARKAPLANA İŞ GÖNDERİR VE CEVABI GETİRİR*/
 }
 
 // Backend API çağrısı
@@ -26,6 +32,7 @@ async function fetchResponse(message) {
     try {
 
         const response = await fetch("/api/chat", {
+            /*SUNUCUYA İSTEK GÖNDERİR*/
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,6 +41,7 @@ async function fetchResponse(message) {
                 user_id: "user_123",
                 message: message
             })
+            /*VERİLER GÜVENLİ ŞEKİLDE SUNUCUYA PAKETLENİR*/
         });
 
         const data = await response.json();
@@ -78,6 +86,7 @@ function appendMessage(text, sender) {
 
 // Ürün listeleme
 function renderProductList(products) {
+    /*SUNUCUDAN GELEN ÜRÜN LİSTESİNİ ALIR*/
 
     appendMessage(
         "İşte senin için seçtiğim ürünler:",
@@ -88,6 +97,7 @@ function renderProductList(products) {
     listContainer.className = "product-list-container";
 
     products.forEach((p) => {
+        /*HER ÜRÜN İÇİN HTML KARTI OLUŞTURUR*/
 
         const productCard = document.createElement("div");
         productCard.className = "product-card";

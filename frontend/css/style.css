@@ -1,5 +1,6 @@
-/* Genel Sayfa Ayarları (Eski Ferah Tasarım) */
+/* Genel Sayfa Ayarları */
 body {
+    /*İÇERİK EKRAN ORTASINA HİZALANIR*/
     font-family: 'Inter', sans-serif;
     background-color: #e3f2fd;
     margin: 0;
@@ -26,6 +27,7 @@ body {
 
 /* CHATBOT - RENKLİ ÇERÇEVE VE KÖŞE DÜZELTMESİ */
 #chat-container {
+    /*CHATBOTU EKRANIN SAĞ ALT KÖŞESİNE SABİTLER*/
     position: fixed; bottom: 20px; right: 20px; width: 380px; height: 600px;
     background: white; border-radius: 30px; display: flex; flex-direction: column;
     z-index: 1000; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -45,10 +47,12 @@ body {
 .message { padding: 12px 16px; border-radius: 18px; max-width: 80%; font-size: 0.9em; line-height: 1.4; }
 .message.bot { align-self: flex-start; background: #f1f0f0; color: #333; }
 .message.user { align-self: flex-end; background: #3498db; color: white; }
+/*BOT MESAJLARI SOLA KULLANICI MESAJLARI SAĞA HİZALANIR*/
 
 /* ÜRÜN KARTLARI - YUKARIDAN AŞAĞIYA ÇERÇEVELİ */
 .product-list-container { display: flex; flex-direction: column; gap: 15px; width: 100%; margin-top: 10px; }
 .product-card {
+    /*ÜRÜNLERİN KART OLARAK GÖZÜKMELERİNİ SAĞLAR*/
     background: white; border: 1px solid #e0e0e0; border-radius: 15px;
     overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
