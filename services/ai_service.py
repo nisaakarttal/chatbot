@@ -3,6 +3,8 @@ import os
 import re
 import unicodedata
 
+"""AIService, chatbot’un asıl beynidir.
+Kullanıcıyla konuşan, karar veren ve tüm chatbot mantığını yöneten ana servis."""
 
 class AIService:
 
@@ -11,11 +13,15 @@ class AIService:
         BASE_DIR = os.path.dirname(
             os.path.dirname(os.path.abspath(__file__))
         )
-
         self.orders_path = os.path.join(BASE_DIR, "frontend", "data", "siparisler.json")
         self.returns_path = os.path.join(BASE_DIR, "frontend", "data", "iadeler.json")
-
         self.user_state = {}
+    """ SS-1 (class + state kısmı) şunu yapıyor:
+    Chatbot’un “beyni”ni oluşturuyor (AIService class) user_state ile kullanıcıyı takip ediyor (hafıza gibi)
+    Kullanıcı ne sordu, hangi aşamada kaldı → hepsini hatırlayan sistem burası
+    Örnek:
+    “iade” dedi → sistem bunu kaydediyor, sonra sipariş no istiyor → onu bekliyor, kullanıcı yazınca kaldığı yerden devam
+    Chatbot’un konuşmayı hatırlamasını sağlayan kısım"""
 
     # -------------------------
     # LOADERS
@@ -39,22 +45,23 @@ class AIService:
             .decode()\
             .lower()\
             .strip()
+    """“Türkçe karakterleri temizliyor, AI karar mekanizmasını sadeleştiriyor”"""
 
     # -------------------------
     # MAIN ENGINE
     # -------------------------
 
-    def ask(self, question: str):
 
+    def ask(self, question: str):
         user_id = "global_user"
         state = self.user_state.get(user_id)
-
         q_raw = question
         q = self.normalize(question)
-
-        # DEBUG (istersen kaldır)
         print("USER INPUT:", q_raw)
         print("NORMALIZED:", q)
+
+        """"ask() fonksiyonu: chatbot’un tüm karar verdiği ana yer Kısaca:
+           Kullanıcının mesajını alır ve ne cevap verileceğine karar verir."""
 
         # =====================================================
         # 1. RETURN STATE
@@ -92,10 +99,10 @@ class AIService:
         # =====================================================
         # 2. ORDER STATE
         # =====================================================
+        """“Aynı state machine mantığı sipariş için de var”"""
+
         if state == "awaiting_order_id":
-
             match = re.search(r"\d+", q)
-
             if not match:
                 return {"reply": "Lütfen sipariş numarası yaz (örn: 123)"}
 
