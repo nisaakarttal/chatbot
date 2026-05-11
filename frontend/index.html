@@ -2,38 +2,60 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>E-Ticaret Akıllı Destek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Commerce - Akıllı Alışveriş</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Mağaza Adı</h1>
-    </header>
+    <section class="main-hero">
+        <div class="brand-box">
+            <h1 class="main-title">SMART COMMERCE</h1>
+        </div>
+        <p class="main-motto">"Teknolojiyle Şekillenen Akıllı Alışveriş"</p>
+
+        <div class="category-buttons">
+            <div class="cat-btn" onclick="sendQuickMessage('Kulaklıklar')">
+                <span class="icon">🎧</span>
+                <strong>Kulaklıklar</strong>
+                <span class="desc">Premium Ses</span>
+            </div>
+            <div class="cat-btn" onclick="sendQuickMessage('Akıllı Saatler')">
+                <span class="icon">⌚</span>
+                <strong>Akıllı Saatler</strong>
+                <span class="desc">Sağlıklı Yaşam</span>
+            </div>
+            <div class="cat-btn" onclick="sendQuickMessage('Aksesuarlar')">
+                <span class="icon">🖱️</span>
+                <strong>Aksesuarlar</strong>
+                <span class="desc">Hız ve Hassasiyet</span>
+            </div>
+            <div class="cat-btn" onclick="sendQuickMessage('Yeni Gelenler')">
+                <span class="icon">✨</span>
+                <strong>Yeni Gelenler</strong>
+                <span class="desc">Keşfet</span>
+            </div>
+        </div>
+    </section>
 
     <div id="chat-container">
         <div id="chat-header">
-            <span>Akıllı Asistan</span>
+            <h2>SMART ASİSTAN</h2>
+            <p>Size nasıl yardımcı olabilirim?</p>
         </div>
 
         <div id="chat-messages">
-            <div class="message bot">
-                Merhaba! Size nasıl yardımcı olabilirim?
-            </div>
+            <div class="message bot">Merhaba! Mağazamıza hoş geldiniz. 👋</div>
         </div>
 
         <div id="chat-options">
-            <button onclick="sendQuickMessage('ürün öner')">🎁 Ürün Öner</button>
-            <button onclick="sendQuickMessage('sipariş')">📦 Sipariş Takibi</button>
-            <button onclick="sendQuickMessage('iade')">🔄 İade İşlemi</button>
+            <button class="opt-btn" onclick="sendQuickMessage('Ürün Önerisi')">🎁 Ürün Önerisi</button>
+            <button class="opt-btn" onclick="sendQuickMessage('Sipariş Takibi')">📦 Sipariş Takibi</button>
+            <button class="opt-btn" onclick="sendQuickMessage('İade İşlemi')">🔄 İade İşlemi</button>
         </div>
 
         <div id="chat-input-area">
-            <input
-                id="chat-input"
-                type="text"
-                placeholder="Mesajınızı yazın..."
-            />
-            <button onclick="sendMessage()">Gönder</button>
+            <input id="chat-input" type="text" placeholder="Mesajınızı buraya yazın..." />
+            <button id="send-btn" onclick="sendMessage()">GÖNDER</button>
         </div>
     </div>
 

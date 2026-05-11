@@ -1,68 +1,198 @@
-"""import os
-from dotenv import load_dotenv
+import json
+import os
+import re
+import unicodedata
 
-load_dotenv()
 
 class AIService:
 
     def __init__(self):
-        self.context = self.load_docs()
 
-        # Basit intent bazlı cevap sistemi
-        self.flows = {
-            "merhaba": "Merhaba 👋 Size nasıl yardımcı olabilirim?",
-            "selam": "Selam! 😊 Sana nasıl yardımcı olabilirim?",
-            "siparis": "Sipariş durumunu öğrenmek için sipariş numaranı yazabilir misin?",
-            "kargo": "Kargo bilgisi için takip numaranı paylaşır mısın?",
-            "iade": "İade işlemleri için ürün bilgisi gerekli. Hangi ürünü iade etmek istiyorsun?",
-            "tesekkur": "Rica ederim 😊 Başka bir sorunuz var mı?"
+        BASE_DIR = os.path.dirname(
+            os.path.dirname(os.path.abspath(__file__))
+        )
+
+        self.orders_path = os.path.join(BASE_DIR, "frontend", "data", "siparisler.json")
+        self.returns_path = os.path.join(BASE_DIR, "frontend", "data", "iadeler.json")
+
+        self.user_state = {}
+
+    # -------------------------
+    # LOADERS
+    # -------------------------
+
+    def load_orders(self):
+        with open(self.orders_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def load_returns(self):
+        with open(self.returns_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    # -------------------------
+    # NORMALIZER (FIX)
+    # -------------------------
+
+    def normalize(self, text: str) -> str:
+        return unicodedata.normalize("NFKD", text)\
+            .encode("ascii", "ignore")\
+            .decode()\
+            .lower()\
+            .strip()
+
+    # -------------------------
+    # MAIN ENGINE
+    # -------------------------
+
+    def ask(self, question: str):
+
+        user_id = "global_user"
+        state = self.user_state.get(user_id)
+
+        q_raw = question
+        q = self.normalize(question)
+
+        # DEBUG (istersen kaldır)
+        print("USER INPUT:", q_raw)
+        print("NORMALIZED:", q)
+
+        # =====================================================
+        # 1. RETURN STATE
+        # =====================================================
+        if state == "awaiting_return_id":
+
+            match = re.search(r"\d+", q)
+
+            if not match:
+                return {"reply": "Lütfen sipariş numarası yaz (örn: 123)"}
+
+            order_id = match.group()
+
+            returns = self.load_returns()
+
+            r = next(
+                (x for x in returns if str(x["order_id"]) == order_id),
+                None
+            )
+
+            self.user_state[user_id] = None
+
+            if r:
+                return {
+                    "reply": (
+                        f"🔄 İade Durumu\n"
+                        f"İade No: {r['return_id']}\n"
+                        f"Durum: {r['status']}\n"
+                        f"Tarih: {r['created_at']}"
+                    )
+                }
+
+            return {"reply": "Bu sipariş için iade bulunamadı ❌"}
+
+        # =====================================================
+        # 2. ORDER STATE
+        # =====================================================
+        if state == "awaiting_order_id":
+
+            match = re.search(r"\d+", q)
+
+            if not match:
+                return {"reply": "Lütfen sipariş numarası yaz (örn: 123)"}
+
+            order_id = match.group()
+
+            orders = self.load_orders()
+
+            order = next(
+                (o for o in orders if str(o["order_id"]) == order_id),
+                None
+            )
+
+            self.user_state[user_id] = None
+
+            if order:
+                return {
+                    "reply": (
+                        f"📦 Sipariş Durumu\n"
+                        f"ID: {order['order_id']}\n"
+                        f"Durum: {order['status']}\n"
+                        f"Teslim: {order['delivery']}"
+                    )
+                }
+
+            return {"reply": "Bu sipariş bulunamadı ❌"}
+
+        # =====================================================
+        # 3. İADE BAŞLAT (FIXED NLP)
+        # =====================================================
+        if any(word in q for word in [
+            "iade",
+            "return",
+            "iade islemi",
+            "iade islemi",
+            "iade işlemi",
+            "iade islemleri"
+        ]):
+
+            self.user_state[user_id] = "awaiting_return_id"
+
+            return {
+                "reply": "İade için sipariş numaranı yazabilir misin? (örn: 123)"
+            }
+
+        # =====================================================
+        # 4. SİPARİŞ BAŞLAT
+        # =====================================================
+        if "siparis" in q or "order" in q:
+
+            self.user_state[user_id] = "awaiting_order_id"
+
+            return {
+                "reply": "Sipariş numaranı yazabilir misin? (örn: 123)"
+            }
+
+        # =====================================================
+        # 5. ÜRÜN ÖNERİSİ
+        # =====================================================
+        if "urun" in q or "product" in q:
+
+            return {
+                "products": [
+                    {
+                        "name": "Sony WH-1000XM5",
+                        "price": 12999,
+                        "image_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
+                    },
+                    {
+                        "name": "Apple Watch Series 9",
+                        "price": 18999,
+                        "image_url": "https://images.unsplash.com/photo-1546868871-7041f2a55e12"
+                    },
+                    {
+                        "name": "Logitech MX Master 3S",
+                        "price": 4999,
+                        "image_url": "https://images.unsplash.com/photo-1527814050087-3793815479db"
+                    }
+                ]
+            }
+
+        # =====================================================
+        # 6. İNCELE
+        # =====================================================
+        if "incele" in q:
+
+            name = q.replace("incele", "").strip()
+
+            return {
+                "reply": f"🔍 {name} için detay sayfası hazırlanıyor..."
+            }
+
+        # =====================================================
+        # 7. FALLBACK
+        # =====================================================
+        return {
+            "reply": "Bunu tam anlayamadım 😕 Daha net yazabilir misin?"
         }
 
-    def load_docs(self):
-        docs_path = "chatbot/docs"
-        content = ""
 
-        if os.path.exists(docs_path):
-            for file in os.listdir(docs_path):
-                if file.endswith(".txt"):
-                    with open(
-                        os.path.join(docs_path, file),
-                        "r",
-                        encoding="utf-8"
-                    ) as f:
-                        content += f.read() + "\n"
-
-        return content.lower()
-
-    def find_intent(self, question):
-
-        question = question.lower()
-
-        # basit keyword matching
-        for key in self.flows:
-            if key in question:
-                return key
-
-        return None
-
-    def ask(self, question):
-
-        try:
-            intent = self.find_intent(question)
-
-            if intent:
-                return self.flows[intent]
-
-            # Doküman içinde arama (RAG-like basit sistem)
-            if self.context:
-                for line in self.context.split("\n"):
-                    if question.lower() in line.lower():
-                        return line
-
-            return "Bunu tam anlayamadım 😕 Daha açık yazar mısın?"
-
-        except Exception as e:
-            print("FLOW ERROR:", e)
-            return "Sistem şu anda çalışmıyor."
-
-ai_service = AIService()"""
+ai_service = AIService()

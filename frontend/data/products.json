@@ -2,31 +2,37 @@
   {
     "id": 1,
     "name": "Kablosuz Kulaklık",
-    "price": 999
+    "price": 999,
+    "image_url": "/static/images/indir (1).jpeg"
   },
   {
     "id": 2,
     "name": "Akıllı Saat",
-    "price": 1299
+    "price": 1299,
+    "image_url": "/static/images/indir (2).jpeg"
   },
   {
     "id": 3,
     "name": "Mouse",
-    "price": 499
+    "price": 499,
+    "image_url": "/static/images/flextab-mouse-siyah.jpg"
   },
   {
     "id": 4,
     "name": "Hoparlör",
-    "price": 1497
+    "price": 1497,
+    "image_url": "/static/images/indir (3).jpeg"
   },
   {
     "id": 5,
     "name": "Şarj kablosu",
-    "price": 777
+    "price": 777,
+    "image_url": "/static/images/indir (4).jpeg"
   },
   {
     "id": 6,
     "name": "Airtag",
-    "price": 389
+    "price": 389,
+    "image_url": "/static/images/indir (5).jpeg"
   }
 ]

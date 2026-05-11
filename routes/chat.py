@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-
-from services.dialog_flow import dialog_flow
+from services.ai_service import ai_service
 
 router = APIRouter(prefix="/api")
 
@@ -13,9 +12,8 @@ class Message(BaseModel):
 
 @router.post("/chat")
 def chat(msg: Message):
-    result = dialog_flow.handle_message(
-        msg.user_id,
-        msg.message
-    )
 
+    result = ai_service.ask(msg.message)
+
+    # ✅ DİREKT DÖN — HİÇ OYNAMIYORSUN
     return result
