@@ -1,13 +1,11 @@
 const chatMessages = document.getElementById("chat-messages");
 const chatInput = document.getElementById("chat-input");
 
-// Hızlı cevap butonları
 async function sendQuickMessage(text) {
     appendMessage(text, "user");
     fetchResponse(text.toLowerCase());
 }
 
-// Inputtan mesaj gönderme
 async function sendMessage() {
     const text = chatInput.value.trim();
 
@@ -20,7 +18,6 @@ async function sendMessage() {
     fetchResponse(text.toLowerCase());
 }
 
-// Backend API çağrısı
 async function fetchResponse(message) {
 
     try {
@@ -40,14 +37,12 @@ async function fetchResponse(message) {
 
         console.log(data);
 
-        // Ürün listesi varsa render et
         if (data.products) {
 
             renderProductList(data.products);
 
         } else {
 
-            // Normal bot mesajı
             appendMessage(data.reply, "bot");
         }
 
@@ -62,7 +57,6 @@ async function fetchResponse(message) {
     }
 }
 
-// Mesaj ekleme
 function appendMessage(text, sender) {
 
     const msg = document.createElement("div");
@@ -76,7 +70,7 @@ function appendMessage(text, sender) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Ürün listeleme
+
 function renderProductList(products) {
 
     appendMessage(
@@ -113,7 +107,6 @@ function renderProductList(products) {
             </div>
         `;
 
-        // 🔥 KRİTİK FIX: onclick HTML içine gömmüyoruz
         const btn = productCard.querySelector("button");
 
         btn.addEventListener("click", () => {
@@ -128,7 +121,6 @@ function renderProductList(products) {
 }
 
 
-// ENTER ile gönderme
 chatInput.addEventListener("keypress", function (e) {
 
     if (e.key === "Enter") {

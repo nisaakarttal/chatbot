@@ -15,5 +15,4 @@ def chat(msg: Message):
 
     result = ai_service.ask(msg.message)
 
-    # ✅ DİREKT DÖN — HİÇ OYNAMIYORSUN
     return result
