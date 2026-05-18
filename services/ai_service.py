@@ -49,6 +49,8 @@ class AIService:
     # MAIN ENGINE
     # -------------------------
 
+    """"ask() fonksiyonu: chatbot’un tüm karar verdiği ana yer Kısaca:
+       Kullanıcının mesajını alır ve ne cevap verileceğine karar verir."""
 
     def ask(self, question: str):
         user_id = "global_user"
@@ -57,8 +59,6 @@ class AIService:
         q = self.normalize(question)
         print("USER INPUT:", q_raw)
         print("NORMALIZED:", q)
-        """"ask() fonksiyonu: chatbot’un tüm karar verdiği ana yer Kısaca:
-           Kullanıcının mesajını alır ve ne cevap verileceğine karar verir."""
 
         # =====================================================
         # 1. RETURN STATE
